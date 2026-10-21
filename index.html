@@ -1,0 +1,694 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Digital Marketing Workflow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EEF1F5;--surface:#FFFFFF;--surface2:#F6F8FB;--ink:#18202F;--muted:#5A6478;--line:#D5DBE5;
+  --plan:#0E7C86;--plan-soft:#D6EEF0;--act:#B86E00;--act-soft:#FCEBCB;--accent:#2E3A8C;--accent-soft:#E3E6F7;--danger:#B3261E;
+  --head:"Bai Jamjuree","IBM Plex Sans Thai","Noto Sans Thai",Tahoma,sans-serif;
+  --body:"IBM Plex Sans Thai","Noto Sans Thai",Tahoma,system-ui,sans-serif;
+  color-scheme:light;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#12161E;--surface:#1B212C;--surface2:#222937;--ink:#E7EBF2;--muted:#9AA4B6;--line:#2E3645;
+  --plan:#45BCC6;--plan-soft:#163A3E;--act:#F0A93B;--act-soft:#3B2D13;--accent:#9AA6FF;--accent-soft:#272E52;--danger:#FF8A80;color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --bg:#12161E;--surface:#1B212C;--surface2:#222937;--ink:#E7EBF2;--muted:#9AA4B6;--line:#2E3645;
+  --plan:#45BCC6;--plan-soft:#163A3E;--act:#F0A93B;--act-soft:#3B2D13;--accent:#9AA6FF;--accent-soft:#272E52;--danger:#FF8A80;color-scheme:dark;}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 80px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.6}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+h1,h2,h3{font-family:var(--head);line-height:1.3;margin:0}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line);
+  display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;padding:12px 20px}
+.brand{font-family:var(--head);font-weight:700;font-size:17px;margin-right:auto}
+.brand small{display:block;font-family:var(--body);font-weight:400;font-size:12px;color:var(--muted)}
+.camp-pick{display:flex;gap:8px;align-items:center}
+.camp-pick select{min-width:200px;max-width:52vw}
+.sync{font-size:12px;color:var(--muted)}
+
+.layout{display:grid;grid-template-columns:250px minmax(0,1fr);gap:24px;max-width:1320px;margin:0 auto;padding:20px}
+.steps{position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px);align-self:start;display:flex;flex-direction:column;gap:0}
+.step{display:grid;grid-template-columns:34px 1fr;gap:10px;text-decoration:none;color:var(--ink);padding:10px 8px;border-radius:10px;position:relative}
+.step:not(:last-child)::after{content:"";position:absolute;left:24px;top:46px;bottom:-6px;width:2px;background:var(--line)}
+.step .num{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-family:var(--head);font-weight:700;border:2px solid var(--line);background:var(--surface);z-index:1}
+.step.done .num{border-color:var(--plan);color:var(--plan)}
+.step.active{background:var(--accent-soft)}
+.step.active .num{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.step b{font-family:var(--head);font-weight:600;display:block}
+.step span{font-size:12.5px;color:var(--muted);display:block}
+.step em{font-style:normal;font-size:12px;color:var(--plan);font-weight:600}
+
+.legend{margin-top:18px;padding:12px;border:1px dashed var(--line);border-radius:10px;font-size:12.5px;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:middle}
+
+main{min-width:0}
+.view-head{display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px;margin-bottom:16px}
+.view-head h2{font-size:26px;font-weight:700;margin-right:auto}
+.view-head p{margin:2px 0 0;color:var(--muted);font-size:14px;flex-basis:100%;order:2}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:16px}
+.panel h3{font-size:17px;font-weight:600;margin-bottom:12px}
+.panel h3 small{font-family:var(--body);font-weight:400;font-size:13px;color:var(--muted);margin-left:6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px 18px}
+.grid .wide{grid-column:1/-1}
+label.f{display:flex;flex-direction:column;gap:4px;font-size:13px;font-weight:500;color:var(--muted)}
+label.f .hint{font-weight:400;font-size:12px}
+input,select,textarea{background:var(--surface2);border:1px solid var(--line);border-radius:8px;padding:8px 10px;width:100%;min-width:0}
+textarea{resize:vertical;line-height:1.55}
+input[type=number]{text-align:right}
+
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:8px 14px;cursor:pointer;font-weight:500;white-space:nowrap}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.btn.small{padding:4px 10px;font-size:13px}
+.btn.ghost{border-color:transparent;background:transparent;color:var(--accent)}
+.btn.danger{color:var(--danger)}
+.link{background:none;border:0;padding:0;color:var(--accent);cursor:pointer;text-decoration:underline;text-underline-offset:3px;font-size:13px;white-space:nowrap}
+.link.plan{color:var(--plan)} .link.act{color:var(--act)}
+
+.kpi-in{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.kpi-in label{border-left:4px solid var(--plan);padding-left:10px}
+
+.tablewrap{overflow-x:auto;margin:0 -4px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+th{font-weight:600;color:var(--muted);font-size:12.5px;white-space:nowrap}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+tr.flash td{animation:flash 2.2s ease-out}
+@keyframes flash{0%,40%{background:var(--accent-soft)}100%{background:transparent}}
+@media (prefers-reduced-motion:reduce){tr.flash td,.card.flash{animation:none;background:var(--accent-soft)}}
+.t-title{font-weight:600}
+.t-sub{font-size:12px;color:var(--muted)}
+.pv{color:var(--plan)} .av{color:var(--act);font-weight:600}
+td input[type=number]{width:96px;padding:5px 7px}
+
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;padding:2px 10px;border-radius:999px;background:var(--surface2);border:1px solid var(--line);white-space:nowrap}
+.chip::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--muted)}
+.chip.production::before{background:#7A6FD0}.chip.review::before{background:#D08A2E}.chip.scheduled::before{background:#3F8FD8}.chip.published::before{background:var(--plan)}
+
+.stats{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 14px;font-size:13px;color:var(--muted)}
+.stat b{font-family:var(--head);font-size:20px;color:var(--ink);margin-right:6px}
+
+.board{display:grid;grid-template-columns:repeat(5,minmax(200px,1fr));gap:12px;overflow-x:auto;padding-bottom:6px}
+.col{background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:10px;min-height:120px}
+.col h3{font-size:14px;font-weight:600;margin:2px 4px 10px;display:flex;justify-content:space-between}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px;margin-bottom:8px;display:flex;flex-direction:column;gap:6px}
+.card.flash{animation:flash 2.2s ease-out}
+.card .t-title{font-size:14px;line-height:1.4}
+.card select{padding:4px 6px;font-size:13px}
+
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-bottom:16px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.kpi .lbl{font-size:13px;color:var(--muted)}
+.kpi .big{font-family:var(--head);font-weight:700;font-size:28px;color:var(--act);line-height:1.2;margin:4px 0}
+.kpi .tgt{font-size:13px;color:var(--plan)}
+.bar{height:10px;border-radius:5px;background:var(--plan-soft);margin-top:10px;position:relative;overflow:hidden}
+.bar i{position:absolute;inset:0 auto 0 0;background:var(--act);border-radius:5px}
+.kpi .p{font-size:13px;font-weight:600;margin-top:6px}
+.p.ok{color:var(--plan)} .p.low{color:var(--danger)}
+
+.cal-bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:12px}
+.cal-nav{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.cal-nav h3{font-size:20px;font-weight:700;min-width:8.5em;text-align:center}
+.cal-filter{flex-direction:row!important;align-items:center;gap:8px!important}
+.cal-filter select{width:auto}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:16px}
+.wd{background:var(--surface2);font-size:12.5px;font-weight:600;color:var(--muted);padding:6px 8px}
+.cell{background:var(--surface);min-height:118px;padding:6px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.cell.out{background:var(--surface2)}
+.cell.out .dn{opacity:.45}
+.cell.rng{box-shadow:inset 0 3px 0 var(--plan)}
+.cell.over,.tray.over{outline:2px dashed var(--accent);outline-offset:-3px;background:var(--accent-soft)}
+.cell-h{display:flex;justify-content:space-between;align-items:center;gap:6px}
+.dn{font-family:var(--head);font-weight:600;font-size:14px;width:26px;height:26px;display:grid;place-items:center}
+.today .dn{background:var(--accent);color:var(--surface);border-radius:50%}
+.add{border:1px solid transparent;background:none;color:var(--muted);cursor:pointer;width:26px;height:26px;border-radius:6px;font-size:17px;line-height:1;opacity:0}
+.cell:hover .add,.add:focus-visible,.ag-day .add{opacity:1}
+.add:hover{border-color:var(--line);color:var(--accent)}
+@media (hover:none){.add{opacity:1}}
+.pill{display:block;font-size:12px;line-height:1.35;padding:3px 6px;border-radius:6px;background:var(--surface2);border:1px solid var(--line);border-left:3px solid var(--muted);cursor:grab;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pill:hover{border-color:var(--accent)}
+.pill.production{border-left-color:#7A6FD0}.pill.review{border-left-color:#D08A2E}.pill.scheduled{border-left-color:#3F8FD8}.pill.published{border-left-color:var(--plan);background:var(--plan-soft)}
+.pill.dragging{opacity:.4}
+.pill.flash{animation:flash 2.2s ease-out}
+.pch{font-weight:600;color:var(--muted);margin-right:5px}
+.tray{min-height:52px;display:flex;flex-wrap:wrap;gap:6px;padding:8px;border:1px dashed var(--line);border-radius:10px;align-items:center}
+.tray .pill{max-width:280px}
+.cal-legend{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px}
+.rng-key{display:inline-block;width:22px;height:3px;background:var(--plan);vertical-align:middle;margin-right:6px}
+.agenda{display:none;margin-bottom:16px}
+.ag-day{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-bottom:8px;display:flex;flex-direction:column;gap:5px}
+.ag-day.rng{border-top:3px solid var(--plan)}
+.ag-day .pill{white-space:normal;font-size:13px;padding:6px 8px}
+@media (max-width:700px){.cal{display:none}.agenda{display:block}}
+.tc{display:flex;gap:10px;align-items:center}
+.thumb,.cover{position:relative;flex:none;border:1px solid var(--line);padding:0;cursor:zoom-in;background:var(--surface2);overflow:hidden}
+.thumb{width:48px;height:48px;border-radius:8px}
+.cover{width:100%;aspect-ratio:16/10;border-radius:6px;display:block}
+.thumb img,.cover img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb span,.cover span{position:absolute;right:3px;bottom:3px;background:rgba(0,0,0,.62);color:#fff;font-size:11px;border-radius:4px;padding:0 5px}
+.pthumb{width:16px;height:16px;border-radius:3px;object-fit:cover;vertical-align:-3px;margin-right:4px}
+.imgs{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px;margin:6px 0 8px}
+.imgs figure{margin:0;position:relative;aspect-ratio:1;border-radius:8px;overflow:hidden;border:1px solid var(--line);background:var(--surface2)}
+.imgs img{width:100%;height:100%;object-fit:cover;display:block}
+.imgs button{position:absolute;top:4px;right:4px;width:26px;height:26px;border-radius:50%;border:0;background:rgba(0,0,0,.62);color:#fff;cursor:pointer;font-size:16px;line-height:1}
+.up-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.up-row label.btn{display:inline-block}
+.gallery{display:grid;gap:10px}
+.gallery img{width:100%;border-radius:10px;display:block;background:var(--surface2)}
+.people{display:flex;align-items:center;gap:8px}
+.avs{display:flex;padding-left:6px}
+.av{width:28px;height:28px;border-radius:50%;border:2px solid var(--c,var(--line));background:var(--surface2);object-fit:cover;display:inline-grid;place-items:center;font-size:12px;font-weight:600;color:var(--muted);margin-left:-6px;box-shadow:0 0 0 2px var(--surface);vertical-align:middle}
+.av.sm{width:20px;height:20px;border-width:1.5px;font-size:10px;margin-left:-4px}
+.feed li .av.sm{margin-left:0}
+.navav{display:flex;margin-top:4px;padding-left:4px}
+.editing{display:inline-block;font-size:11.5px;color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:0 8px;margin-top:3px}
+.pill.locked{outline:2px solid var(--accent);outline-offset:-1px}
+.warn{background:var(--act-soft);border:1px solid var(--act);border-radius:10px;padding:8px 12px;font-size:13.5px;margin-bottom:12px}
+.feed{margin-top:16px}
+.feed h4{font-family:var(--head);font-size:14px;font-weight:600;margin:0 0 8px}
+.feed ol{list-style:none;margin:0 0 6px;padding:0;display:flex;flex-direction:column;gap:9px}
+.feed li{display:grid;grid-template-columns:22px 1fr;gap:8px;font-size:12.5px;line-height:1.45}
+.feed li button{all:unset;cursor:pointer}
+.feed li button:hover b{text-decoration:underline}
+.feed li button:focus-visible{outline:2px solid var(--accent)}
+.feed time{display:block;color:var(--muted);font-size:11.5px}
+.ro-note{background:var(--accent-soft);border-radius:10px;padding:8px 14px;margin-bottom:14px;font-size:14px}
+.ro main input,.ro main textarea,.ro main select:not(#calCh),.ro dialog input,.ro dialog textarea,.ro dialog select{pointer-events:none;opacity:.75}
+.ro [data-act=new-campaign],.ro [data-act=new-content],.ro [data-act=sample],.ro [data-act=del-campaign],.ro .add,.ro [data-dact=save],.ro [data-dact=del],.ro .up-row,.ro .imgs button{display:none!important}
+@media (max-width:900px){.steps .feed{display:none}.people .sync{display:none}}
+.empty{text-align:center;padding:48px 20px;background:var(--surface);border:1px dashed var(--line);border-radius:14px}
+.empty h2{font-size:22px;margin-bottom:6px}
+.empty p{color:var(--muted);margin:0 auto 18px;max-width:46ch}
+.empty .row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.next{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:6px}
+
+dialog{border:1px solid var(--line);border-radius:16px;background:var(--surface);color:var(--ink);padding:0;width:min(640px,94vw);max-height:90vh}
+dialog::backdrop{background:rgba(10,14,22,.45)}
+.dlg-in{padding:20px 22px;overflow:auto;max-height:90vh}
+.dlg-in h2{font-size:20px;margin-bottom:14px}
+.dlg-foot{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 20px);background:var(--ink);color:var(--surface);padding:10px 16px;border-radius:10px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:20}
+.toast.on{opacity:1}
+
+@media (max-width:900px){
+  .layout{grid-template-columns:1fr;padding:12px;gap:12px}
+  .steps{position:static;flex-direction:row;overflow-x:auto;gap:6px;padding-bottom:4px}
+  .step{grid-template-columns:28px auto;padding:8px 10px;min-width:max-content;border:1px solid var(--line);background:var(--surface)}
+  .step::after{display:none}
+  .step .num{width:28px;height:28px;font-size:13px}
+  .step span{display:none}
+  .legend{display:none}
+  .top{padding:10px 12px}
+  .camp-pick{width:100%}
+  .camp-pick select{flex:1;max-width:none;min-width:0}
+  .view-head h2{font-size:22px}
+}
+@media print{.top,.steps,.btn,.link{display:none!important}.layout{display:block}.panel,.kpi{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand">Digital Marketing Workflow<small>วางแผน → คอนเทนต์ → แพลนเนอร์ → ดำเนินงาน → บันทึกผล → สรุปผล</small></div>
+  <div class="camp-pick">
+    <label for="campSel" class="sync">แคมเปญ</label>
+    <select id="campSel" aria-label="เลือกแคมเปญ"></select>
+    <button class="btn primary small" data-act="new-campaign">สร้างแคมเปญ</button>
+  </div>
+  <div class="people" id="people"></div><button class="btn small" id="feedBtn" data-act="feed" hidden>ความเคลื่อนไหว</button>
+  <div class="sync" id="sync">กำลังเชื่อมต่อ…</div>
+</header>
+<div class="layout">
+  <nav class="steps" id="nav" aria-label="ขั้นตอนการทำงาน"></nav>
+  <main id="main"></main>
+</div>
+<dialog id="dlg"></dialog>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+const STAGES=[
+  {id:'plan',t:'วางแผนแคมเปญ',d:'เป้าหมาย กลุ่มเป้าหมาย งบ และ KPI'},
+  {id:'content',t:'แผนคอนเทนต์',d:'รายการชิ้นงานและเป้าหมาย'},
+  {id:'planner',t:'แพลนเนอร์',d:'ปฏิทินเผยแพร่รายเดือน'},
+  {id:'board',t:'ดำเนินงาน',d:'ติดตามสถานะการผลิต'},
+  {id:'results',t:'บันทึกผล',d:'ตัวเลขจริงของแต่ละชิ้นงาน'},
+  {id:'report',t:'สรุปผล',d:'แผนเทียบผลจริง และบทเรียน'}];
+const KPIS=[['reach','การเข้าถึง (Reach)'],['engagement','การมีส่วนร่วม (Engagement)'],['clicks','คลิก (Clicks)'],['conversions','Conversion / ลีด']];
+const STATUS=[['idea','ไอเดีย'],['production','กำลังผลิต'],['review','รอตรวจ/อนุมัติ'],['scheduled','ตั้งเวลาแล้ว'],['published','เผยแพร่แล้ว']];
+const CHANNELS=['Facebook','Instagram','TikTok','YouTube','LINE OA','X','Website / Blog','Google Ads','Email'];
+const FORMATS=['โพสต์ภาพ','Carousel','วิดีโอสั้น','วิดีโอยาว','Story','Live','บทความ','โฆษณา (Ads)','บรอดแคสต์'];
+const RES=['reach','engagement','clicks','conversions','spend'];
+
+const main=document.getElementById('main'),nav=document.getElementById('nav'),sel=document.getElementById('campSel'),dlg=document.getElementById('dlg');
+let S={campaigns:{},contents:{}},cur=null,view='plan',focusId=null,mode='local',DB=null;
+let calMonth=null,calCh='',ASSETS=null,ROOM=null,USER=null,ME=null,PEERS=[],PROF={},ACT=[],canWrite=true,EDITING=null;
+
+/* ---------- helpers ---------- */
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+const isNum=v=>v!==null&&v!==undefined&&v!==''&&!isNaN(v);
+const nf=n=>isNum(n)?Number(n).toLocaleString('th-TH',{maximumFractionDigits:0}):'–';
+const nf2=n=>isNum(n)&&isFinite(n)?Number(n).toLocaleString('th-TH',{maximumFractionDigits:2}):'–';
+const pf=x=>x==null||!isFinite(x)?'–':(x*100).toLocaleString('th-TH',{maximumFractionDigits:1})+'%';
+const money=n=>isNum(n)?'฿'+nf(n):'–';
+const dfmt=s=>{if(!s)return'–';const d=new Date(s+'T00:00');return isNaN(d)?s:d.toLocaleDateString('th-TH',{day:'numeric',month:'short',year:'2-digit'})};
+const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const CH_SHORT={'Facebook':'FB','Instagram':'IG','TikTok':'TT','YouTube':'YT','LINE OA':'LINE','X':'X','Website / Blog':'Web','Google Ads':'Ads','Email':'Mail'};
+const chShort=ch=>CH_SHORT[ch]||String(ch||'').slice(0,4);
+const imgSrc=im=>im&&im.id?'/_blob/'+im.id:((im&&im.src)||'');
+const thumb=x=>x.images&&x.images.length?`<button class="thumb" data-act="view-img" data-id="${x.id}" aria-label="ดูรูปของ ${esc(x.title||'')}"><img src="${esc(imgSrc(x.images[0]))}" alt="" loading="lazy">${x.images.length>1?`<span>+${x.images.length-1}</span>`:''}</button>`:'';
+function shrink(file,max,q){return new Promise((res,rej)=>{if(file.type==='image/gif'||file.type==='image/svg+xml'){res(file);return}const u=URL.createObjectURL(file),im=new Image();im.onload=()=>{let w=im.naturalWidth,h=im.naturalHeight;const s=Math.min(1,max/Math.max(w,h));w=Math.round(w*s);h=Math.round(h*s);const cv=document.createElement('canvas');cv.width=w;cv.height=h;const ctx=cv.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,w,h);ctx.drawImage(im,0,0,w,h);URL.revokeObjectURL(u);cv.toBlob(b=>b?res(b):rej(new Error('encode')),'image/jpeg',q)};im.onerror=()=>{URL.revokeObjectURL(u);rej(new Error('decode'))};im.src=u})}
+const blobToData=b=>new Promise((r,j)=>{const f=new FileReader();f.onload=()=>r(f.result);f.onerror=j;f.readAsDataURL(b)});
+function dropImgs(x){if(ASSETS)(x.images||[]).forEach(im=>{if(im.id)ASSETS.delete(im.id).catch(()=>{})})}
+
+/* ---------- collaboration ---------- */
+const rel=t=>{if(!t)return'';const s=(Date.now()-t)/1000;if(s<60)return'เมื่อสักครู่';if(s<3600)return Math.floor(s/60)+' นาทีที่แล้ว';if(s<86400)return Math.floor(s/3600)+' ชม.ที่แล้ว';return new Date(t).toLocaleString('th-TH',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})};
+const pname=id=>id===ME&&ME?'คุณ':((id&&PROF[id]&&PROF[id].name)||'ผู้ร่วมงาน');
+function av(id,cls=''){const p=id&&PROF[id];const c=(p&&p.color)||'';return p&&p.avatarUrl?`<img class="av ${cls}" src="${esc(p.avatarUrl)}" alt="${esc(p.name||'')}" style="--c:${esc(c)}">`:`<span class="av ${cls}" style="--c:${esc(c)}">${esc(((p&&p.name)||'?').slice(0,1))}</span>`}
+function editorsOf(id){const s=new Set();PEERS.forEach(p=>{if(!p.isMe&&p.presence&&p.presence.editing===id)s.add(p.by)});return [...s]}
+const editBadge=id=>{const e=editorsOf(id);return e.length?`<span class="editing">✎ ${esc(e.map(pname).join(', '))} กำลังแก้ไข</span>`:''};
+function navAv(st){if(!ROOM)return'';const s=new Map();PEERS.forEach(p=>{if(!p.isMe&&p.presence&&p.presence.view===st&&p.presence.camp===cur)s.set(p.by||p.peer,p.by)});const ids=[...s.values()];return ids.length?`<div class="navav" title="${esc(ids.map(pname).join(', '))} อยู่ที่หน้านี้">${ids.slice(0,5).map(b=>av(b,'sm')).join('')}</div>`:''}
+function renderPeople(){const el=document.getElementById('people');if(!el)return;if(!ROOM){el.innerHTML='';return}const m=new Map();PEERS.forEach(p=>{const k=p.by||p.peer;if(!m.has(k))m.set(k,p)});const list=[...m.values()].sort((a,b)=>b.isMe-a.isMe);const stName=v=>(STAGES.find(s=>s.id===v)||{}).t||'';
+  el.innerHTML=`<div class="avs">${list.slice(0,6).map(p=>`<span title="${esc(pname(p.by)+(p.presence&&p.presence.view?' · '+stName(p.presence.view):''))}">${av(p.by)}</span>`).join('')}${list.length>6?`<span class="av">+${list.length-6}</span>`:''}</div><span class="sync">ออนไลน์ ${list.length} คน</span>`}
+function feedHtml(n){if(mode!=='db')return'';const list=ACT.filter(a=>a&&(!a.camp||a.camp===cur)).slice(0,n);const link=a=>a.ref&&S.contents[a.ref];
+  return `<div class="feed"><h4>ความเคลื่อนไหวล่าสุด</h4>${list.length?`<ol>${list.map(a=>`<li>${av(a.by,'sm')}<div>${link(a)?`<button data-act="go" data-view="content" data-focus="${esc(a.ref)}">`:'<span>'}<b>${esc(pname(a.by))}</b> ${esc(a.text)}${link(a)?'</button>':'</span>'}<time>${rel(a.at)}</time></div></li>`).join('')}</ol>`:'<p class="t-sub" style="margin:0">ยังไม่มีความเคลื่อนไหว</p>'}${n<40&&ACT.length>n?'<button class="link" data-act="feed">ดูทั้งหมด</button>':''}</div>`}
+function openFeed(){dlg.onclose=null;dlg.innerHTML=`<div class="dlg-in"><h2>ความเคลื่อนไหวของทีม</h2>${feedHtml(40)}<div class="dlg-foot"><button class="btn primary" data-dact="close">ปิด</button></div></div>`;dlg.onclick=e=>{if(e.target===dlg||e.target.closest('[data-dact=close]'))dlg.close()};if(!dlg.open)dlg.showModal()}
+let DL=null,xlsxP=null;
+function loadXLSX(){if(window.XLSX)return Promise.resolve(window.XLSX);if(!xlsxP)xlsxP=new Promise((res,rej)=>{const s=document.createElement('script');s.src='https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';s.onload=()=>window.XLSX?res(window.XLSX):rej(new Error('load'));s.onerror=()=>{xlsxP=null;rej(new Error('load'))};document.head.appendChild(s)});return xlsxP}
+async function exportReport(btn){
+  const c=camp();if(!c)return;
+  const old=btn.textContent;btn.disabled=true;btn.textContent='กำลังสร้างไฟล์…';
+  try{
+    const X=await loadXLSX();
+    const list=contentsOf(c.id),a=agg(list),k=c.kpi||{};
+    const num=v=>isNum(v)?Number(v):null,ratio=(n,d)=>d>0?n/d:null,pctOf=(v,t)=>isNum(t)&&Number(t)>0&&isNum(v)?Number(v)/Number(t):null;
+    const pct=[],dec=[];
+    /* sheet 1: summary */
+    const s1=[['รายงานสรุปผลแคมเปญ'],[],
+      ['ชื่อแคมเปญ',c.name||''],['วัตถุประสงค์',c.objective||''],['ช่วงเวลา',`${c.start||'-'} ถึง ${c.end||'-'}`],['กลุ่มเป้าหมาย',c.audience||''],['ข้อความหลัก',c.message||''],['ช่องทางหลัก',c.channels||''],['ผู้รับผิดชอบ',c.owner||''],['ส่งออกเมื่อ',new Date().toLocaleString('th-TH')],[],
+      ['ตัวชี้วัด','เป้าหมาย','ผลจริง','% ของเป้า']];
+    KPIS.forEach(([key,l])=>{pct.push([s1.length,3]);s1.push([l,num(k[key]),a[key],pctOf(a[key],k[key])])});
+    pct.push([s1.length,3]);s1.push(['งบประมาณ (บาท)',num(c.budget),a.spend,pctOf(a.spend,c.budget)]);
+    s1.push([],['ประสิทธิภาพ','ค่า']);
+    pct.push([s1.length,1]);s1.push(['Engagement rate',ratio(a.engagement,a.reach)]);
+    pct.push([s1.length,1]);s1.push(['คลิกต่อการเข้าถึง',ratio(a.clicks,a.reach)]);
+    pct.push([s1.length,1]);s1.push(['Conversion rate (จากคลิก)',ratio(a.conversions,a.clicks)]);
+    dec.push([s1.length,1]);s1.push(['ต้นทุนต่อคลิก CPC (บาท)',a.clicks?a.spend/a.clicks:null]);
+    dec.push([s1.length,1]);s1.push(['ต้นทุนต่อ Conversion CPA (บาท)',a.conversions?a.spend/a.conversions:null]);
+    s1.push([],['การส่งมอบงาน','จำนวน'],['ชิ้นงานตามแผน',list.length],['เผยแพร่แล้ว',list.filter(x=>x.status==='published').length],['มีผลบันทึกแล้ว',a.rec],
+      [],['บทสรุปและบทเรียน'],['สิ่งที่ได้ผลดี',c.insWorked||''],['สิ่งที่ต้องปรับ',c.insImprove||''],['แผนครั้งถัดไป',c.nextSteps||'']);
+    /* sheet 2: per content */
+    const s2=[['วันเผยแพร่','คอนเทนต์','Content pillar','ช่องทาง','รูปแบบ','ผู้รับผิดชอบ','สถานะ','Reach แผน','Reach จริง','% เป้า Reach','Engagement แผน','Engagement จริง','% เป้า Engagement','คลิก','Conversion','งบที่วางไว้ (บาท)','ใช้งบจริง (บาท)','Engagement rate','หมายเหตุ','ลิงก์โพสต์','จำนวนรูป']];
+    list.forEach(x=>{const r=x.res||{};s2.push([x.date||'',x.title||'',x.pillar||'',x.channel||'',x.format||'',x.owner||'',stLabel(x.status),num(x.tReach),num(r.reach),pctOf(r.reach,x.tReach),num(x.tEng),num(r.engagement),pctOf(r.engagement,x.tEng),num(r.clicks),num(r.conversions),num(x.cost),num(r.spend),pctOf(r.engagement,r.reach),r.note||'',x.url||'',(x.images||[]).length])});
+    const t=a;s2.push(['','รวม','','','','','',list.reduce((s,x)=>s+(num(x.tReach)||0),0),t.reach,null,list.reduce((s,x)=>s+(num(x.tEng)||0),0),t.engagement,null,t.clicks,t.conversions,list.reduce((s,x)=>s+(num(x.cost)||0),0),t.spend,ratio(t.engagement,t.reach),'','','']);
+    /* sheet 3: by channel */
+    const byCh={};list.forEach(x=>{const ch=x.channel||'อื่น ๆ';(byCh[ch]=byCh[ch]||[]).push(x)});
+    const s3=[['ช่องทาง','ชิ้นงาน','Reach','Engagement','Engagement rate','คลิก','Conversion','ใช้งบ (บาท)','ต้นทุนต่อ Conversion (บาท)']];
+    Object.entries(byCh).forEach(([ch,xs])=>{const g=agg(xs);s3.push([ch,xs.length,g.reach,g.engagement,ratio(g.engagement,g.reach),g.clicks,g.conversions,g.spend,g.conversions?g.spend/g.conversions:null])});
+    const fmt=(ws,pc,dc)=>{Object.keys(ws).forEach(ref=>{if(ref[0]==='!')return;const cell=ws[ref];if(cell.t!=='n')return;const rc=X.utils.decode_cell(ref);cell.z=pc(rc)?'0.0%':dc(rc)?'#,##0.00':'#,##0'})};
+    const ws1=X.utils.aoa_to_sheet(s1);fmt(ws1,rc=>pct.some(([r,c2])=>r===rc.r&&c2===rc.c),rc=>dec.some(([r,c2])=>r===rc.r&&c2===rc.c));ws1['!cols']=[{wch:30},{wch:48},{wch:16},{wch:14}];
+    const ws2=X.utils.aoa_to_sheet(s2);fmt(ws2,rc=>[9,12,17].includes(rc.c),()=>false);ws2['!cols']=[12,36,16,14,14,14,14,12,12,12,14,14,14,10,12,16,16,14,32,32,10].map(w=>({wch:w}));ws2['!autofilter']={ref:X.utils.encode_range({s:{r:0,c:0},e:{r:Math.max(1,s2.length-2),c:20}})};
+    const ws3=X.utils.aoa_to_sheet(s3);fmt(ws3,rc=>rc.c===4,rc=>rc.c===8);ws3['!cols']=[18,10,12,12,14,10,12,14,20].map(w=>({wch:w}));
+    const wb=X.utils.book_new();X.utils.book_append_sheet(wb,ws1,'สรุปแคมเปญ');X.utils.book_append_sheet(wb,ws2,'รายชิ้นงาน');X.utils.book_append_sheet(wb,ws3,'ตามช่องทาง');
+    const buf=X.write(wb,{bookType:'xlsx',type:'array'});
+    const blob=new Blob([buf],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+    const fname=`สรุปผล-${(c.name||'แคมเปญ').replace(/[\\/:*?"<>|]+/g,'').trim().slice(0,60)}-${iso(new Date())}.xlsx`;
+    if(DL){await DL.save({filename:fname,data:blob});toast('ส่งออกไฟล์ Excel แล้ว')}
+    else if(!window.claude){const u=URL.createObjectURL(blob),l=document.createElement('a');l.href=u;l.download=fname;document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(u),3000)}
+    else toast('บัญชีนี้ดาวน์โหลดไฟล์จากหน้านี้ไม่ได้');
+  }catch(e){toast(e&&/declin|cancel|denied|dismiss/i.test(e.code||'')?'ยกเลิกการดาวน์โหลด':'สร้างไฟล์ไม่สำเร็จ ลองใหม่อีกครั้ง')}
+  finally{btn.disabled=false;btn.textContent=old}
+}
+const lastLog={};
+function logAct(text,ref,force){if(mode!=='db'||!DB||!canWrite)return;const now=Date.now(),k=(ref||'')+'|'+text;if(!force&&lastLog[k]&&now-lastLog[k]<120000)return;lastLog[k]=now;
+  DB.collection('activity').add({at:now,by:ME,text:String(text).slice(0,200),camp:cur||null,ref:ref||null}).catch(()=>{});
+  if(Math.random()<.1)DB.collection('activity').where('at','<',now-30*864e5).limit(20).get().then(q=>q.docs.forEach(d=>DB.collection('activity').doc(d.id).delete().catch(()=>{}))).catch(()=>{})}
+function logChange(kind,id,f,v){const o=S[kind][id];if(!o)return;if(kind==='contents'){if(f==='status')logAct(`เปลี่ยนสถานะ “${o.title||''}” เป็น ${stLabel(v)}`,id,true);else if(f.startsWith('res.')||f==='url')logAct(`บันทึกผลของ “${o.title||''}”`,id)}else logAct(/^(insWorked|insImprove|nextSteps)$/.test(f)?'เขียนบทสรุปแคมเปญ':'แก้ไขแผนแคมเปญ',null)}
+let lastPres='';
+function pushPresence(){if(!ROOM)return;const p={view,camp:cur||null,editing:EDITING||null};const s=JSON.stringify(p);if(s===lastPres)return;lastPres=s;ROOM.presence(p).catch(()=>{})}
+let profBusy=false;
+async function resolveProfiles(){if(!USER||profBusy)return;const ids=new Set();PEERS.forEach(p=>p.by&&ids.add(p.by));ACT.forEach(a=>a&&a.by&&ids.add(a.by));Object.values(S.contents).concat(Object.values(S.campaigns)).forEach(o=>o.updatedBy&&ids.add(o.updatedBy));if(ME)ids.add(ME);
+  const need=[...ids].filter(i=>!PROF[i]);if(!need.length)return;profBusy=true;try{const r=await USER.profiles(need);Object.assign(PROF,r||{})}catch(e){}need.forEach(i=>{if(!PROF[i])PROF[i]={id:i,name:'',avatarUrl:'',color:''}});profBusy=false;render()}
+function updDlgWarn(){if(!dlg.open)return;const id=dlg.dataset.openId,w=dlg.querySelector('#d-warn');if(!id||!w)return;const c=S.contents[id],eds=editorsOf(id),msgs=[];
+  if(eds.length)msgs.push(`${eds.map(pname).join(', ')} กำลังเปิดแก้ชิ้นนี้อยู่เช่นกัน ระบบจะบันทึกเฉพาะช่องที่คุณแก้ แต่ถ้าแก้ช่องเดียวกัน คนที่กดบันทึกทีหลังจะทับ`);
+  if(!c)msgs.push('ชิ้นงานนี้ถูกผู้ร่วมงานลบไปแล้ว');else if(String(c.updatedAt||0)!==dlg.dataset.openVer&&c.updatedBy&&c.updatedBy!==ME)msgs.push(`${pname(c.updatedBy)} เพิ่งบันทึกการแก้ไขชิ้นนี้ ปิดแล้วเปิดใหม่เพื่อดูข้อมูลล่าสุด`);
+  w.hidden=!msgs.length;w.innerHTML=msgs.map(esc).join('<br>')}
+const stLabel=s=>(STATUS.find(x=>x[0]===s)||STATUS[0])[1];
+const getPath=(o,p)=>p.split('.').reduce((a,k)=>a==null?a:a[k],o);
+function setPath(o,p,v){const ks=p.split('.');let t=o;ks.slice(0,-1).forEach(k=>{if(typeof t[k]!=='object'||t[k]===null)t[k]={};t=t[k]});t[ks[ks.length-1]]=v}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('on'),2600)}
+const camp=()=>S.campaigns[cur];
+const contentsOf=id=>Object.values(S.contents).filter(c=>c.campaignId===id).sort((a,b)=>(a.date||'9999').localeCompare(b.date||'9999')||(a.createdAt||0)-(b.createdAt||0));
+const hasRes=c=>RES.some(k=>isNum(c.res&&c.res[k]));
+function agg(list){const t={reach:0,engagement:0,clicks:0,conversions:0,spend:0,rec:0};list.forEach(c=>{if(hasRes(c))t.rec++;RES.forEach(k=>{const v=c.res&&c.res[k];if(isNum(v))t[k]+=Number(v)})});return t}
+
+/* ---------- storage ---------- */
+function lsGet(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}}
+function lsSet(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function saveLocal(){if(mode==='local')lsSet('dmw-data',S)}
+const chains={};
+function save(kind,obj){
+  obj.updatedAt=Date.now();obj.updatedBy=ME;S[kind][obj.id]=obj;
+  if(mode==='db'){const key=kind+'/'+obj.id;const data=JSON.parse(JSON.stringify(obj));
+    chains[key]=(chains[key]||Promise.resolve()).then(()=>DB.collection(kind).doc(obj.id).set(data)).catch(e=>toast('บันทึกไม่สำเร็จ: '+(e&&(e.message||e.code)||'ลองใหม่อีกครั้ง')));}
+  else saveLocal();
+}
+function writeUpdate(kind,id,p){const key=kind+'/'+id;chains[key]=(chains[key]||Promise.resolve()).then(()=>DB.collection(kind).doc(id).update(p)).catch(e=>toast(e&&e.code==='invalid_argument'?'รายการนี้ถูกผู้ร่วมงานลบไปแล้ว':'บันทึกไม่สำเร็จ: '+(e&&(e.message||e.code)||'ลองใหม่อีกครั้ง')))}
+function patch(kind,id,path,v){const obj=S[kind][id];if(!obj)return;setPath(obj,path,v);obj.updatedAt=Date.now();obj.updatedBy=ME;if(mode==='db'){const p={};setPath(p,path,v);p.updatedAt=obj.updatedAt;p.updatedBy=ME;writeUpdate(kind,id,JSON.parse(JSON.stringify(p)))}else saveLocal()}
+function patchObj(kind,id,f){const obj=S[kind][id];if(!obj)return;Object.assign(obj,f,{updatedAt:Date.now(),updatedBy:ME});if(mode==='db')writeUpdate(kind,id,JSON.parse(JSON.stringify(Object.assign({},f,{updatedAt:obj.updatedAt,updatedBy:ME}))));else saveLocal()}
+function remove(kind,id){
+  delete S[kind][id];
+  if(mode==='db'){const key=kind+'/'+id;chains[key]=(chains[key]||Promise.resolve()).then(()=>DB.collection(kind).doc(id).delete()).catch(e=>toast('ลบไม่สำเร็จ'))}
+  else saveLocal();
+}
+function ensureCur(){const ids=Object.keys(S.campaigns);if(!cur||!S.campaigns[cur]){const last=lsGet('dmw-cur');cur=S.campaigns[last]?last:(ids.sort((a,b)=>(S.campaigns[b].createdAt||0)-(S.campaigns[a].createdAt||0))[0]||null)}}
+function setCur(id){cur=id;calMonth=null;calCh='';lsSet('dmw-cur',id)}
+
+/* ---------- inputs ---------- */
+function inp(kind,id,f,val,o={}){const num=o.num;return `<input type="${num?'number':(o.type||'text')}" data-k="${kind}:${id}:${f}" data-kind="${kind}" data-id="${id}" data-f="${f}" ${num?'data-num min="0" step="any" inputmode="decimal"':''} value="${esc(val??'')}" placeholder="${esc(o.ph||'')}" ${o.aria?`aria-label="${esc(o.aria)}"`:''}>`}
+function ta(kind,id,f,val,ph,rows=3){return `<textarea rows="${rows}" data-k="${kind}:${id}:${f}" data-kind="${kind}" data-id="${id}" data-f="${f}" placeholder="${esc(ph||'')}">${esc(val??'')}</textarea>`}
+function selF(kind,id,f,val,opts,aria){return `<select data-k="${kind}:${id}:${f}" data-kind="${kind}" data-id="${id}" data-f="${f}" ${aria?`aria-label="${esc(aria)}"`:''}>${opts.map(o=>{const [v,l]=Array.isArray(o)?o:[o,o];return `<option value="${esc(v)}" ${v===val?'selected':''}>${esc(l)}</option>`}).join('')}</select>`}
+const goBtn=(v,id,txt,cls='')=>`<button class="link ${cls}" data-act="go" data-view="${v}" ${id?`data-focus="${id}"`:''}>${txt}</button>`;
+
+/* ---------- nav ---------- */
+function stageProgress(){
+  const c=camp();if(!c)return{};
+  const list=contentsOf(c.id),pub=list.filter(x=>x.status==='published').length,a=agg(list);
+  return{
+    plan:{done:!!(c.name&&c.objective&&KPIS.some(k=>isNum(c.kpi&&c.kpi[k[0]]))),txt:''},
+    content:{done:list.length>0,txt:list.length?list.length+' ชิ้น':''},
+    planner:{done:list.length>0&&list.every(x=>x.date),txt:list.length?`กำหนดวัน ${list.filter(x=>x.date).length}/${list.length}`:''},
+    board:{done:list.length>0&&pub===list.length,txt:list.length?`เผยแพร่ ${pub}/${list.length}`:''},
+    results:{done:pub>0&&a.rec>=pub,txt:list.length?`มีผล ${a.rec}/${list.length}`:''},
+    report:{done:!!(c.insWorked||c.insImprove||c.nextSteps),txt:''}};
+}
+function renderNav(){
+  const p=stageProgress();
+  nav.innerHTML=STAGES.map((s,i)=>{const pr=p[s.id]||{};return `<a href="#${s.id}" class="step ${view===s.id?'active':''} ${pr.done?'done':''}" ${view===s.id?'aria-current="page"':''}>
+    <div class="num">${pr.done&&view!==s.id?'✓':i+1}</div><div><b>${s.t}</b><span>${s.d}</span>${pr.txt?`<em>${pr.txt}</em>`:''}${navAv(s.id)}</div></a>`}).join('')+
+  `<div class="legend"><div><i style="background:var(--plan)"></i>ตัวเลขตามแผน / เป้าหมาย</div><div><i style="background:var(--act)"></i>ตัวเลขผลจริง</div></div>`+feedHtml(8);
+  const ids=Object.values(S.campaigns).sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
+  sel.innerHTML=ids.length?ids.map(c=>`<option value="${c.id}" ${c.id===cur?'selected':''}>${esc(c.name||'แคมเปญไม่มีชื่อ')}</option>`).join(''):'<option value="">ยังไม่มีแคมเปญ</option>';
+  sel.disabled=!ids.length;
+  renderPeople();
+}
+
+/* ---------- views ---------- */
+function emptyAll(){return `<div class="empty"><h2>เริ่มจากสร้างแคมเปญแรก</h2><p>ทุกขั้นตอนในเทมเพลตนี้ผูกกับแคมเปญ ตั้งเป้าหมายและ KPI ไว้ที่นี่ แล้วตัวเลขผลจริงจะถูกนำมาเทียบในหน้าสรุปผลให้อัตโนมัติ</p>
+  <div class="row"><button class="btn primary" data-act="new-campaign">สร้างแคมเปญ</button><button class="btn" data-act="sample">ใส่ข้อมูลตัวอย่าง</button></div></div>`}
+function head(title,desc,right=''){return `<div class="view-head"><h2>${title}</h2>${right}<p>${desc}</p></div>`}
+
+function vPlan(c){
+  const k=c.kpi||{};
+  return head('1. วางแผนแคมเปญ','กำหนดเป้าหมายให้ชัดและวัดผลได้ ตัวเลข KPI ในหน้านี้คือเส้นที่หน้าสรุปผลจะใช้เทียบ')+
+  `<section class="panel"><h3>ข้อมูลแคมเปญ</h3><div class="grid">
+    <label class="f wide">ชื่อแคมเปญ ${inp('campaigns',c.id,'name',c.name,{ph:'เช่น เปิดตัวสินค้าใหม่ Q4'})}</label>
+    <label class="f wide">วัตถุประสงค์ <span class="hint">เขียนแบบ SMART: เฉพาะเจาะจง วัดได้ ทำได้จริง เกี่ยวข้อง มีกรอบเวลา</span>${ta('campaigns',c.id,'objective',c.objective,'เช่น เพิ่มยอดสั่งซื้อออนไลน์ 20% ภายใน 6 สัปดาห์')}</label>
+    <label class="f">วันเริ่ม ${inp('campaigns',c.id,'start',c.start,{type:'date'})}</label>
+    <label class="f">วันสิ้นสุด ${inp('campaigns',c.id,'end',c.end,{type:'date'})}</label>
+    <label class="f">งบประมาณรวม (บาท) ${inp('campaigns',c.id,'budget',c.budget,{num:1})}</label>
+    <label class="f">ผู้รับผิดชอบหลัก ${inp('campaigns',c.id,'owner',c.owner,{ph:'ชื่อ / ทีม'})}</label>
+    <label class="f wide">กลุ่มเป้าหมาย (Persona) ${ta('campaigns',c.id,'audience',c.audience,'อายุ ไลฟ์สไตล์ ปัญหาที่เจอ ช่องทางที่ใช้',2)}</label>
+    <label class="f wide">ข้อความหลัก (Key message) ${ta('campaigns',c.id,'message',c.message,'สิ่งเดียวที่อยากให้กลุ่มเป้าหมายจำได้',2)}</label>
+    <label class="f">ช่องทางหลัก ${inp('campaigns',c.id,'channels',c.channels,{ph:'Facebook, TikTok, LINE OA'})}</label>
+    <label class="f">Content pillars <span class="hint">คั่นด้วยจุลภาค ใช้เป็นตัวเลือกในแผนคอนเทนต์</span>${inp('campaigns',c.id,'pillars',c.pillars,{ph:'ให้ความรู้, รีวิว, โปรโมชัน'})}</label>
+  </div></section>
+  <section class="panel"><h3>เป้าหมาย KPI <small>รวมทั้งแคมเปญ</small></h3><div class="kpi-in">
+    ${KPIS.map(([key,l])=>`<label class="f">${l}${inp('campaigns',c.id,'kpi.'+key,k[key],{num:1})}</label>`).join('')}
+  </div></section>
+  <div class="next"><button class="btn danger small" data-act="del-campaign">ลบแคมเปญนี้</button>${goBtn('content','','ขั้นถัดไป: วางแผนคอนเทนต์')}</div>`;
+}
+
+function vContent(c){
+  const list=contentsOf(c.id);
+  const counts=STATUS.map(([s,l])=>[l,list.filter(x=>x.status===s).length]);
+  const planned=list.reduce((a,x)=>a+(isNum(x.cost)?Number(x.cost):0),0);
+  return head('2. แผนคอนเทนต์','รายการชิ้นงานทั้งหมดของแคมเปญ เรียงตามวันเผยแพร่ แต่ละแถวลิงก์ไปบันทึกผลของชิ้นนั้นได้ทันที',`<button class="btn" data-act="go" data-view="planner">เปิดแพลนเนอร์</button><button class="btn primary" data-act="new-content">เพิ่มคอนเทนต์</button>`)+
+  `<div class="stats"><div class="stat"><b>${list.length}</b>ชิ้นงาน</div>${counts.map(([l,n])=>`<div class="stat"><b>${n}</b>${l}</div>`).join('')}<div class="stat"><b class="pv">${money(planned)}</b>งบที่วางไว้ จาก ${money(c.budget)}</div></div>`+
+  (list.length?`<section class="panel"><div class="tablewrap"><table><thead><tr><th>วันเผยแพร่</th><th>คอนเทนต์</th><th>ช่องทาง / รูปแบบ</th><th>ผู้รับผิดชอบ</th><th>สถานะ</th><th class="n">เป้า Reach</th><th class="n">เป้า Engagement</th><th></th></tr></thead><tbody>
+  ${list.map(x=>`<tr data-row="${x.id}"><td>${dfmt(x.date)}</td><td><div class="tc">${thumb(x)}<div><div class="t-title">${esc(x.title||'ไม่มีชื่อ')}</div><div class="t-sub">${esc(x.pillar||'')}</div>${editBadge(x.id)}</div></div></td>
+   <td>${esc(x.channel)}<div class="t-sub">${esc(x.format)}</div></td><td>${esc(x.owner||'–')}</td><td><span class="chip ${x.status}">${stLabel(x.status)}</span></td>
+   <td class="n pv">${nf(x.tReach)}</td><td class="n pv">${nf(x.tEng)}</td>
+   <td><div style="display:flex;gap:12px;justify-content:flex-end"><button class="link" data-act="edit-content" data-id="${x.id}">แก้ไข</button>${goBtn('results',x.id,'บันทึกผล','act')}</div></td></tr>`).join('')}
+  </tbody></table></div></section>`:`<div class="empty"><h2>ยังไม่มีคอนเทนต์ในแผน</h2><p>เพิ่มชิ้นงานแรก กำหนดวันเผยแพร่ ช่องทาง และเป้าหมายของชิ้นนั้น</p><div class="row"><button class="btn primary" data-act="new-content">เพิ่มคอนเทนต์</button></div></div>`)+
+  `<div class="next">${goBtn('plan','','ย้อนกลับ: วางแผนแคมเปญ')}${goBtn('planner','','ขั้นถัดไป: แพลนเนอร์')}</div>`;
+}
+
+function vBoard(c){
+  const list=contentsOf(c.id);
+  return head('4. ดำเนินงาน','ติดตามการผลิตแต่ละชิ้นงาน เปลี่ยนสถานะได้จากการ์ด เมื่อเผยแพร่แล้วไปบันทึกตัวเลขผลจริงต่อ',`<button class="btn primary" data-act="new-content">เพิ่มคอนเทนต์</button>`)+
+  `<div class="board">${STATUS.map(([s,l])=>{const items=list.filter(x=>x.status===s);return `<div class="col"><h3><span>${l}</span><span>${items.length}</span></h3>
+   ${items.map(x=>`<div class="card" data-row="${x.id}">${x.images&&x.images.length?`<button class="cover" data-act="view-img" data-id="${x.id}" aria-label="ดูรูปของ ${esc(x.title||'')}"><img src="${esc(imgSrc(x.images[0]))}" alt="" loading="lazy">${x.images.length>1?`<span>+${x.images.length-1}</span>`:''}</button>`:''}<div class="t-title">${esc(x.title||'ไม่มีชื่อ')}</div><div class="t-sub">${dfmt(x.date)} · ${esc(x.channel)} · ${esc(x.owner||'ไม่ระบุผู้รับผิดชอบ')}</div>${editBadge(x.id)}
+   ${selF('contents',x.id,'status',x.status,STATUS,'สถานะของ '+(x.title||''))}
+   <div style="display:flex;gap:12px">${goBtn('content',x.id,'ดูในแผน','plan')}${s==='published'?goBtn('results',x.id,'บันทึกผล','act'):''}</div></div>`).join('')}</div>`}).join('')}</div>
+  <div class="next">${goBtn('planner','','ย้อนกลับ: แพลนเนอร์')}${goBtn('results','','ขั้นถัดไป: บันทึกผล')}</div>`;
+}
+
+function vResults(c){
+  const list=contentsOf(c.id).sort((a,b)=>(b.status==='published')-(a.status==='published'));
+  const a=agg(list);
+  return head('5. บันทึกผล','กรอกตัวเลขจริงจากแต่ละแพลตฟอร์ม (Insights / Ads Manager) ระบบรวมยอดไปที่หน้าสรุปผลให้เอง')+
+  `<div class="stats"><div class="stat"><b>${a.rec}/${list.length}</b>ชิ้นที่มีผลแล้ว</div><div class="stat"><b class="av">${nf(a.reach)}</b>Reach รวม</div><div class="stat"><b class="av">${nf(a.engagement)}</b>Engagement รวม</div><div class="stat"><b class="av">${money(a.spend)}</b>ใช้งบจริง</div></div>`+
+  (list.length?`<section class="panel"><div class="tablewrap"><table><thead><tr><th>คอนเทนต์</th><th class="n">Reach</th><th class="n">Engagement</th><th class="n">คลิก</th><th class="n">Conversion</th><th class="n">ใช้งบ (บาท)</th><th class="n">ER</th><th>หมายเหตุ / ลิงก์โพสต์</th></tr></thead><tbody>
+  ${list.map(x=>{const r=x.res||{};const er=isNum(r.reach)&&Number(r.reach)>0&&isNum(r.engagement)?r.engagement/r.reach:null;return `<tr data-row="${x.id}">
+   <td><div class="tc">${thumb(x)}<div><div class="t-title">${esc(x.title||'ไม่มีชื่อ')}</div><div class="t-sub">${dfmt(x.date)} · ${esc(x.channel)} · <span class="chip ${x.status}" style="font-size:11px;padding:0 8px">${stLabel(x.status)}</span></div><div class="t-sub">เป้า Reach <span class="pv">${nf(x.tReach)}</span> · เป้า Eng. <span class="pv">${nf(x.tEng)}</span> · ${goBtn('content',x.id,'ดูแผน','plan')}</div>${editBadge(x.id)}</div></div></td>
+   ${RES.map(k=>`<td class="n">${inp('contents',x.id,'res.'+k,r[k],{num:1,aria:k+' ของ '+(x.title||'')})}</td>`).join('')}
+   <td class="n av">${pf(er)}</td>
+   <td style="min-width:180px">${inp('contents',x.id,'res.note',r.note,{ph:'สิ่งที่สังเกตได้',aria:'หมายเหตุ'})}<div style="margin-top:4px">${inp('contents',x.id,'url',x.url,{ph:'https://',aria:'ลิงก์โพสต์'})}</div></td></tr>`}).join('')}
+  </tbody></table></div></section>`:`<div class="empty"><h2>ยังไม่มีชิ้นงานให้บันทึกผล</h2><p>เพิ่มคอนเทนต์ในแผนก่อน แล้วกลับมากรอกตัวเลขหลังเผยแพร่</p><div class="row">${goBtn('content','','ไปที่แผนคอนเทนต์')}</div></div>`)+
+  `<div class="next">${goBtn('board','','ย้อนกลับ: ดำเนินงาน')}${goBtn('report','','ขั้นถัดไป: สรุปผล')}</div>`;
+}
+
+function vReport(c){
+  const list=contentsOf(c.id),a=agg(list),k=c.kpi||{};
+  const pub=list.filter(x=>x.status==='published').length;
+  const card=(label,actual,target,fmt=nf)=>{const p=isNum(target)&&Number(target)>0?actual/target:null;return `<div class="kpi"><div class="lbl">${label}</div><div class="big">${fmt(actual)}</div><div class="tgt">เป้าหมาย ${fmt(target)}</div>
+    <div class="bar" role="img" aria-label="ทำได้ ${pf(p)} ของเป้า"><i style="width:${p==null?0:Math.min(p,1)*100}%"></i></div><div class="p ${p==null?'':p>=1?'ok':'low'}">${p==null?'ยังไม่ได้ตั้งเป้า':p>=1?'ทำได้ '+pf(p)+' ของเป้า (ถึงเป้า)':'ทำได้ '+pf(p)+' ของเป้า'}</div></div>`};
+  const budgetCard=()=>{const p=isNum(c.budget)&&Number(c.budget)>0?a.spend/c.budget:null;return `<div class="kpi"><div class="lbl">งบประมาณที่ใช้</div><div class="big">${money(a.spend)}</div><div class="tgt">งบตั้งไว้ ${money(c.budget)}</div>
+    <div class="bar"><i style="width:${p==null?0:Math.min(p,1)*100}%"></i></div><div class="p ${p==null?'':p>1?'low':'ok'}">${p==null?'ยังไม่ได้ตั้งงบ':p>1?'ใช้เกินงบ '+pf(p-1):'ใช้ไป '+pf(p)+' ของงบ'}</div></div>`};
+  const byCh={};list.forEach(x=>{const ch=x.channel||'อื่น ๆ';byCh[ch]=byCh[ch]||[];byCh[ch].push(x)});
+  const top=list.filter(x=>isNum(x.res&&x.res.engagement)).sort((p,q)=>q.res.engagement-p.res.engagement).slice(0,3);
+  const ratio=(n,d)=>d>0?n/d:null;
+  return head('6. สรุปผล','เทียบแผนกับผลจริงทั้งแคมเปญ ทุกตัวเลขดึงจากหน้าวางแผนและหน้าบันทึกผล คลิกชื่อชิ้นงานเพื่อย้อนกลับไปดูต้นทาง',`<button class="btn primary" data-act="export-xlsx">ส่งออก Excel</button>`)+
+  `<section class="panel"><h3>${esc(c.name||'แคมเปญไม่มีชื่อ')} <small>${dfmt(c.start)} – ${dfmt(c.end)}</small></h3>
+   <p style="margin:0 0 6px"><b>วัตถุประสงค์:</b> ${esc(c.objective||'ยังไม่ได้ระบุ')} ${goBtn('plan','','แก้ไขในแผน','plan')}</p>
+   <p style="margin:0;color:var(--muted);font-size:14px">ชิ้นงานตามแผน ${list.length} · เผยแพร่แล้ว ${pub} · มีผลบันทึกแล้ว ${a.rec}</p></section>
+  <div class="kpis">${KPIS.map(([key,l])=>card(l,a[key],k[key])).join('')}${budgetCard()}</div>
+  <section class="panel"><h3>ประสิทธิภาพ</h3><div class="stats" style="margin:0">
+    <div class="stat"><b class="av">${pf(ratio(a.engagement,a.reach))}</b>Engagement rate</div>
+    <div class="stat"><b class="av">${pf(ratio(a.clicks,a.reach))}</b>คลิกต่อการเข้าถึง</div>
+    <div class="stat"><b class="av">${pf(ratio(a.conversions,a.clicks))}</b>Conversion rate (จากคลิก)</div>
+    <div class="stat"><b class="av">${a.clicks?'฿'+nf2(a.spend/a.clicks):'–'}</b>ต้นทุนต่อคลิก (CPC)</div>
+    <div class="stat"><b class="av">${a.conversions?'฿'+nf2(a.spend/a.conversions):'–'}</b>ต้นทุนต่อ Conversion (CPA)</div>
+  </div></section>
+  <section class="panel"><h3>ผลแยกตามช่องทาง</h3><div class="tablewrap"><table><thead><tr><th>ช่องทาง</th><th class="n">ชิ้นงาน</th><th class="n">Reach</th><th class="n">Engagement</th><th class="n">ER</th><th class="n">คลิก</th><th class="n">Conversion</th><th class="n">ใช้งบ</th></tr></thead><tbody>
+   ${Object.keys(byCh).length?Object.entries(byCh).map(([ch,xs])=>{const g=agg(xs);return `<tr><td>${esc(ch)}</td><td class="n">${xs.length}</td><td class="n av">${nf(g.reach)}</td><td class="n av">${nf(g.engagement)}</td><td class="n">${pf(ratio(g.engagement,g.reach))}</td><td class="n av">${nf(g.clicks)}</td><td class="n av">${nf(g.conversions)}</td><td class="n av">${money(g.spend)}</td></tr>`}).join(''):'<tr><td colspan="8" class="t-sub">ยังไม่มีข้อมูล</td></tr>'}
+  </tbody></table></div></section>
+  <section class="panel"><h3>แผนเทียบผลจริง รายชิ้นงาน</h3><div class="tablewrap"><table><thead><tr><th>คอนเทนต์</th><th>สถานะ</th><th class="n">Reach แผน</th><th class="n">Reach จริง</th><th class="n">Eng. แผน</th><th class="n">Eng. จริง</th><th class="n">% เป้า Reach</th><th></th></tr></thead><tbody>
+   ${list.length?list.map(x=>{const r=x.res||{};const p=isNum(x.tReach)&&Number(x.tReach)>0&&isNum(r.reach)?r.reach/x.tReach:null;return `<tr><td><button class="link plan" data-act="go" data-view="content" data-focus="${x.id}" style="text-align:left;white-space:normal">${esc(x.title||'ไม่มีชื่อ')}</button><div class="t-sub">${dfmt(x.date)} · ${esc(x.channel)}</div></td>
+    <td><span class="chip ${x.status}">${stLabel(x.status)}</span></td><td class="n pv">${nf(x.tReach)}</td><td class="n av">${nf(r.reach)}</td><td class="n pv">${nf(x.tEng)}</td><td class="n av">${nf(r.engagement)}</td>
+    <td class="n"><span class="p ${p==null?'':p>=1?'ok':'low'}">${pf(p)}</span></td><td>${goBtn('results',x.id,'ดูผล','act')}</td></tr>`}).join(''):'<tr><td colspan="8" class="t-sub">ยังไม่มีชิ้นงาน</td></tr>'}
+  </tbody></table></div></section>
+  ${top.length?`<section class="panel"><h3>ชิ้นงานที่ได้ผลดีที่สุด <small>เรียงตาม Engagement</small></h3><ol style="margin:0;padding-left:20px">${top.map(x=>`<li><button class="link" data-act="go" data-view="results" data-focus="${x.id}">${esc(x.title)}</button> <span class="t-sub">${esc(x.channel)} · ${esc(x.format)}</span> · <span class="av">${nf(x.res.engagement)}</span> engagement${x.res.note?` · <span class="t-sub">${esc(x.res.note)}</span>`:''}</li>`).join('')}</ol></section>`:''}
+  <section class="panel"><h3>บทสรุปและบทเรียน</h3><div class="grid">
+    <label class="f">สิ่งที่ได้ผลดี ${ta('campaigns',c.id,'insWorked',c.insWorked,'รูปแบบ ช่องทาง หรือข้อความที่ทำได้เกินเป้า',4)}</label>
+    <label class="f">สิ่งที่ต้องปรับ ${ta('campaigns',c.id,'insImprove',c.insImprove,'จุดที่ต่ำกว่าเป้า และสาเหตุที่คาดว่าเป็น',4)}</label>
+    <label class="f wide">แผนครั้งถัดไป ${ta('campaigns',c.id,'nextSteps',c.nextSteps,'สิ่งที่จะทำต่อ ผู้รับผิดชอบ และกำหนดเวลา',3)}</label>
+  </div></section>
+  <div class="next">${goBtn('results','','ย้อนกลับ: บันทึกผล')}${goBtn('plan','','กลับไปหน้าวางแผน')}</div>`;
+}
+
+function vPlanner(c){
+  if(!calMonth){const b=c.start?new Date(c.start+'T00:00'):new Date();calMonth=new Date(b.getFullYear(),b.getMonth(),1)}
+  const y=calMonth.getFullYear(),m=calMonth.getMonth(),mk=`${y}-${String(m+1).padStart(2,'0')}`;
+  const all=contentsOf(c.id),list=all.filter(x=>!calCh||x.channel===calCh);
+  const byDate={};list.forEach(x=>{if(x.date)(byDate[x.date]=byDate[x.date]||[]).push(x)});
+  const unsched=list.filter(x=>!x.date);
+  const first=new Date(y,m,1),start=new Date(y,m,1-((first.getDay()+6)%7));
+  const days=[];for(let i=0;i<42;i++)days.push(new Date(start.getFullYear(),start.getMonth(),start.getDate()+i));
+  while(days.length>28&&days[days.length-7].getMonth()!==m)days.splice(-7);
+  const todayK=iso(new Date());
+  const inRange=k=>!!(c.start&&c.end&&k>=c.start&&k<=c.end);
+  const monthItems=list.filter(x=>x.date&&x.date.slice(0,7)===mk);
+  const chCount={};monthItems.forEach(x=>{chCount[x.channel]=(chCount[x.channel]||0)+1});
+  const pill=x=>`<div class="pill ${x.status} ${editorsOf(x.id).length?'locked':''}" role="button" tabindex="0" draggable="true" data-drag="${x.id}" data-row="${x.id}" data-act="edit-content" data-id="${x.id}" title="${esc((x.title||'')+' · '+x.channel+' · '+stLabel(x.status))}">${x.images&&x.images.length?`<img class="pthumb" src="${esc(imgSrc(x.images[0]))}" alt="">`:''}<span class="pch">${esc(chShort(x.channel))}</span>${esc(x.title||'ไม่มีชื่อ')}</div>`;
+  const monthName=first.toLocaleDateString('th-TH',{month:'long',year:'numeric'});
+  const chs=[...new Set(all.map(x=>x.channel).filter(Boolean))];
+  const WD=['จ.','อ.','พ.','พฤ.','ศ.','ส.','อา.'];
+  const addBtn=k=>`<button class="add" data-act="new-on-date" data-date="${k}" aria-label="เพิ่มคอนเทนต์วันที่ ${dfmt(k)}">+</button>`;
+  const agendaDays=days.filter(d=>d.getMonth()===m&&(byDate[iso(d)]||[]).length);
+  return head('3. แพลนเนอร์','ปฏิทินเผยแพร่รายเดือน กด + ในช่องวันที่เพื่อเพิ่มคอนเทนต์ ลากการ์ดเพื่อย้ายวัน หรือคลิกการ์ดเพื่อแก้ไข',`<button class="btn primary" data-act="new-content">เพิ่มคอนเทนต์</button>`)+
+  `<div class="cal-bar"><div class="cal-nav"><button class="btn small" data-act="cal" data-d="-1" aria-label="เดือนก่อนหน้า">‹</button><h3>${monthName}</h3><button class="btn small" data-act="cal" data-d="1" aria-label="เดือนถัดไป">›</button><button class="btn small ghost" data-act="cal" data-d="0">เดือนนี้</button>${c.start?`<button class="btn small ghost" data-act="cal" data-d="s">เดือนเริ่มแคมเปญ</button>`:''}</div>
+   <label class="f cal-filter">ช่องทาง<select id="calCh">${['',...chs].map(v=>`<option value="${esc(v)}" ${v===calCh?'selected':''}>${v?esc(v):'ทุกช่องทาง'}</option>`).join('')}</select></label></div>
+  <div class="stats"><div class="stat"><b>${monthItems.length}</b>ชิ้นในเดือนนี้</div>${Object.entries(chCount).map(([k,n])=>`<div class="stat"><b>${n}</b>${esc(k)}</div>`).join('')}${unsched.length?`<div class="stat"><b>${unsched.length}</b>ยังไม่กำหนดวัน</div>`:''}</div>
+  <div class="cal" aria-label="ปฏิทิน ${monthName}">${WD.map(w=>`<div class="wd">${w}</div>`).join('')}
+   ${days.map(d=>{const k=iso(d),its=byDate[k]||[];return `<div class="cell ${d.getMonth()!==m?'out':''} ${inRange(k)?'rng':''} ${k===todayK?'today':''}" data-drop="${k}"><div class="cell-h"><span class="dn">${d.getDate()}</span>${addBtn(k)}</div>${its.map(pill).join('')}</div>`}).join('')}</div>
+  <div class="agenda">${agendaDays.length?agendaDays.map(d=>{const k=iso(d);return `<div class="ag-day ${inRange(k)?'rng':''} ${k===todayK?'today':''}"><div class="cell-h"><b>${d.toLocaleDateString('th-TH',{weekday:'short',day:'numeric',month:'short'})}</b>${addBtn(k)}</div>${byDate[k].map(pill).join('')}</div>`}).join(''):'<p class="t-sub">ยังไม่มีคอนเทนต์ในเดือนนี้ กดเพิ่มคอนเทนต์เพื่อเริ่มวางแผน</p>'}</div>
+  <section class="panel"><h3>ยังไม่กำหนดวัน <small>ลากการ์ดไปวางบนปฏิทินเพื่อกำหนดวัน หรือคลิกเพื่อใส่วันที่</small></h3><div class="tray" data-drop="">${unsched.length?unsched.map(pill).join(''):'<span class="t-sub">ทุกชิ้นกำหนดวันแล้ว</span>'}</div></section>
+  <div class="cal-legend">${STATUS.map(([s,l])=>`<span class="chip ${s}">${l}</span>`).join('')}<span class="t-sub"><span class="rng-key"></span>อยู่ในช่วงแคมเปญ</span></div>
+  <div class="next">${goBtn('content','','ย้อนกลับ: แผนคอนเทนต์')}${goBtn('board','','ขั้นถัดไป: ดำเนินงาน')}</div>`;
+}
+
+function render(){
+  const ae=document.activeElement;let keep=null;
+  if(ae&&ae.dataset&&ae.dataset.k&&main.contains(ae))keep={k:ae.dataset.k,v:ae.value,s:ae.selectionStart,e:ae.selectionEnd};
+  const sy=window.scrollY;
+  ensureCur();renderNav();
+  const c=camp();
+  main.innerHTML=(canWrite?'':'<div class="ro-note">คุณมีสิทธิ์ดูอย่างเดียว ขอสิทธิ์แก้ไขจากเจ้าของหน้านี้เพื่อร่วมทำงาน</div>')+(!c?emptyAll():({plan:vPlan,content:vContent,planner:vPlanner,board:vBoard,results:vResults,report:vReport}[view]||vPlan)(c));
+  if(keep){const el=main.querySelector(`[data-k="${CSS.escape(keep.k)}"]`);if(el){el.value=keep.v;el.focus({preventScroll:true});try{el.setSelectionRange(keep.s,keep.e)}catch(e){}}}
+  if(focusId){const row=main.querySelector(`[data-row="${CSS.escape(focusId)}"]`);focusId=null;
+    if(row){row.scrollIntoView({block:'center',behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'});row.classList.add('flash')}}
+  else window.scrollTo(0,sy);
+  updDlgWarn();pushPresence();
+}
+
+/* ---------- actions ---------- */
+function go(v,id){if(dlg.open)dlg.close();view=v;focusId=id||null;if(location.hash.slice(1)!==v){history.replaceState(null,'','#'+v)}if(!id)window.scrollTo(0,0);render()}
+function newCampaign(){const c={id:uid(),name:'แคมเปญใหม่',objective:'',audience:'',message:'',channels:'',pillars:'',owner:'',start:'',end:'',budget:null,kpi:{reach:null,engagement:null,clicks:null,conversions:null},insWorked:'',insImprove:'',nextSteps:'',createdAt:Date.now()};save('campaigns',c);setCur(c.id);logAct('สร้างแคมเปญใหม่',null,true);go('plan')}
+function openContent(id,presetDate){
+  const c=camp();if(!c)return;
+  const x=id?S.contents[id]:{id:uid(),campaignId:c.id,title:'',pillar:'',channel:CHANNELS[0],format:FORMATS[0],date:presetDate||'',owner:'',status:'idea',brief:'',cost:null,tReach:null,tEng:null,url:'',res:{},createdAt:Date.now()};
+  const pillars=(c.pillars||'').split(',').map(s=>s.trim()).filter(Boolean);
+  const o=(arr,v)=>arr.map(a=>{const [k,l]=Array.isArray(a)?a:[a,a];return `<option value="${esc(k)}" ${k===v?'selected':''}>${esc(l)}</option>`}).join('');
+  dlg.innerHTML=`<div class="dlg-in"><h2>${id?'แก้ไขคอนเทนต์':'เพิ่มคอนเทนต์'}</h2>${id&&x.updatedAt?`<p class="t-sub" style="margin:-8px 0 12px">แก้ไขล่าสุด ${rel(x.updatedAt)}${x.updatedBy?' โดย '+esc(pname(x.updatedBy)):''}</p>`:''}<div id="d-warn" class="warn" role="status" hidden></div><div class="grid">
+    <label class="f wide">หัวข้อ / ชื่อชิ้นงาน<input id="d-title" value="${esc(x.title)}" placeholder="เช่น วิดีโอรีวิว 30 วินาที"></label>
+    <label class="f">Content pillar<input id="d-pillar" list="d-pl" value="${esc(x.pillar)}"><datalist id="d-pl">${pillars.map(p=>`<option value="${esc(p)}">`).join('')}</datalist></label>
+    <label class="f">วันเผยแพร่<input id="d-date" type="date" value="${esc(x.date)}"></label>
+    <label class="f">ช่องทาง<select id="d-channel">${o(CHANNELS.includes(x.channel)?CHANNELS:[x.channel,...CHANNELS],x.channel)}</select></label>
+    <label class="f">รูปแบบ<select id="d-format">${o(FORMATS.includes(x.format)?FORMATS:[x.format,...FORMATS],x.format)}</select></label>
+    <label class="f">ผู้รับผิดชอบ<input id="d-owner" value="${esc(x.owner)}"></label>
+    <label class="f">สถานะ<select id="d-status">${o(STATUS,x.status)}</select></label>
+    <label class="f wide">บรีฟ / ข้อความหลัก / CTA<textarea id="d-brief" rows="3">${esc(x.brief)}</textarea></label>
+    <div class="f wide"><span>รูปคอนเทนต์ <span class="hint">ภาพงานจริง ดราฟต์ หรือภาพอ้างอิง แนบได้หลายรูป</span></span><div class="imgs" id="d-imgs"></div>
+      <div class="up-row">${(ASSETS||mode==='local')?`<label class="btn small">เลือกรูป<input type="file" id="d-file" accept="image/*" multiple hidden></label><span class="t-sub" id="d-upmsg" role="status">JPG, PNG, WebP หรือ GIF ระบบย่อขนาดรูปให้อัตโนมัติ</span>`:`<span class="t-sub" id="d-upmsg">บัญชีนี้ดูรูปได้ แต่แนบรูปใหม่ได้เฉพาะผู้ที่มีสิทธิ์แก้ไขหน้านี้</span>`}</div></div>
+    <label class="f">งบที่วางไว้ (บาท)<input id="d-cost" type="number" min="0" value="${esc(x.cost??'')}"></label>
+    <label class="f">เป้า Reach<input id="d-tReach" type="number" min="0" value="${esc(x.tReach??'')}"></label>
+    <label class="f">เป้า Engagement<input id="d-tEng" type="number" min="0" value="${esc(x.tEng??'')}"></label>
+  </div><div class="dlg-foot">${id?'<button class="btn danger" data-dact="del" style="margin-right:auto">ลบ</button>':''}<button class="btn" data-dact="close">ยกเลิก</button><button class="btn primary" data-dact="save">${id?'บันทึกการแก้ไข':'เพิ่มในแผน'}</button></div></div>`;
+  dlg.dataset.openId=id||'';dlg.dataset.openVer=String(x.updatedAt||0);EDITING=x.id;pushPresence();
+  let imgs=(x.images||[]).map(im=>Object.assign({},im)),saved=false;const added=[],removed=[];
+  const imgBox=dlg.querySelector('#d-imgs'),upMsg=dlg.querySelector('#d-upmsg'),fileIn=dlg.querySelector('#d-file');
+  const drawImgs=()=>{imgBox.innerHTML=imgs.length?imgs.map((im,i)=>`<figure><img src="${esc(imgSrc(im))}" alt="รูปที่ ${i+1}"><button type="button" data-dact="rmimg" data-i="${i}" aria-label="ลบรูปที่ ${i+1}">×</button></figure>`).join(''):'<span class="t-sub">ยังไม่มีรูป</span>'};
+  drawImgs();
+  if(fileIn)fileIn.onchange=async()=>{const fs=[...fileIn.files];fileIn.value='';for(const f of fs){if(!f.type.startsWith('image/')){upMsg.textContent='แนบได้เฉพาะไฟล์รูปภาพ';continue}upMsg.textContent='กำลังอัปโหลด '+f.name+'…';
+    try{if(ASSETS){const r=await ASSETS.upload(await shrink(f,1600,.85));imgs.push({id:r.id});added.push(r.id)}else{imgs.push({src:await blobToData(await shrink(f,1000,.72))})}drawImgs();upMsg.textContent='แนบรูปแล้ว กดบันทึกเพื่อเก็บไว้กับคอนเทนต์'}
+    catch(err){upMsg.textContent='อัปโหลด '+f.name+' ไม่สำเร็จ'+(err&&err.code?' ('+err.code+')':'')+' ลองใช้ไฟล์ที่เล็กลง'}}};
+  const dropAdded=()=>{if(ASSETS)added.splice(0).forEach(id=>ASSETS.delete(id).catch(()=>{}))};
+  dlg.onclose=()=>{if(!saved)dropAdded()};
+  dlg.onclick=e=>{const a=e.target.closest('[data-dact]');if(e.target===dlg){dlg.close();return}if(!a)return;
+    if(a.dataset.dact==='close')dlg.close();
+    if(a.dataset.dact==='rmimg'){const im=imgs.splice(+a.dataset.i,1)[0];if(im&&im.id){const k=added.indexOf(im.id);if(k>-1){added.splice(k,1);if(ASSETS)ASSETS.delete(im.id).catch(()=>{})}else removed.push(im.id)}drawImgs()}
+    if(a.dataset.dact==='del'){dropAdded();saved=true;askConfirm('ลบคอนเทนต์ชิ้นนี้พร้อมผลและรูปที่บันทึกไว้?',()=>{dropImgs(x);logAct(`ลบคอนเทนต์ “${x.title||''}”`,null,true);remove('contents',x.id);render()});}
+    if(a.dataset.dact==='save'){const g=i=>dlg.querySelector('#d-'+i).value;const n=i=>{const v=g(i);return v===''?null:Number(v)};
+      const y=Object.assign(JSON.parse(JSON.stringify(x)),{title:g('title').trim(),pillar:g('pillar').trim(),date:g('date'),channel:g('channel'),format:g('format'),owner:g('owner').trim(),status:g('status'),brief:g('brief'),cost:n('cost'),tReach:n('tReach'),tEng:n('tEng'),images:imgs});
+      if(!y.title){dlg.querySelector('#d-title').focus();toast('ใส่หัวข้อของชิ้นงานก่อนบันทึก');return}
+      saved=true;if(ASSETS)removed.forEach(id=>ASSETS.delete(id).catch(()=>{}));
+      if(id&&S.contents[id]){const ch={};Object.keys(y).forEach(k=>{if(!['updatedAt','updatedBy','res','id','campaignId','createdAt'].includes(k)&&JSON.stringify(y[k])!==JSON.stringify(x[k]))ch[k]=y[k]});if(Object.keys(ch).length){patchObj('contents',id,ch);logAct(`แก้ไขคอนเทนต์ “${y.title}”`,id)}}
+      else{save('contents',y);logAct(`เพิ่มคอนเทนต์ “${y.title}”`,y.id,true)}
+      dlg.close();focusId=y.id;render();toast(id?'บันทึกการแก้ไขแล้ว':'เพิ่มในแผนแล้ว')}};
+  if(!dlg.open)dlg.showModal();updDlgWarn();setTimeout(()=>dlg.querySelector('#d-title').focus(),30);
+}
+function viewImgs(id){
+  const x=S.contents[id];if(!x||!(x.images||[]).length)return;
+  dlg.onclose=null;
+  dlg.innerHTML=`<div class="dlg-in"><h2>${esc(x.title||'ไม่มีชื่อ')}</h2><p class="t-sub" style="margin:-8px 0 12px">${dfmt(x.date)} · ${esc(x.channel)} · ${esc(x.format)} · ${x.images.length} รูป</p><div class="gallery">${x.images.map((im,i)=>`<img src="${esc(imgSrc(im))}" alt="รูปที่ ${i+1} ของ ${esc(x.title||'')}">`).join('')}</div>
+  <div class="dlg-foot"><button class="btn" data-dact="edit">แก้ไขคอนเทนต์</button><button class="btn primary" data-dact="close">ปิด</button></div></div>`;
+  dlg.onclick=e=>{const a=e.target.closest('[data-dact]');if(e.target===dlg){dlg.close();return}if(!a)return;if(a.dataset.dact==='edit'){openContent(id)}else dlg.close()};
+  if(!dlg.open)dlg.showModal();
+}
+function askConfirm(msg,yes){
+  dlg.onclose=null;
+  dlg.innerHTML=`<div class="dlg-in"><h2>ยืนยันการลบ</h2><p>${esc(msg)}</p><div class="dlg-foot"><button class="btn" data-dact="no">ยกเลิก</button><button class="btn primary" data-dact="yes">ลบ</button></div></div>`;
+  dlg.onclick=e=>{const a=e.target.closest('[data-dact]');if(e.target===dlg){dlg.close();return}if(!a)return;dlg.close();if(a.dataset.dact==='yes')yes()};
+  if(!dlg.open)dlg.showModal();
+}
+function addSample(){
+  const cid=uid(),t=new Date(),d=n=>{const x=new Date(t);x.setDate(x.getDate()+n);return iso(x)};
+  save('campaigns',{id:cid,name:'ตัวอย่าง: เปิดตัวเมนูเครื่องดื่มหน้าหนาว',objective:'เพิ่มยอดสั่งเมนูใหม่ผ่าน LINE OA ให้ได้ 600 ออร์เดอร์ ภายใน 4 สัปดาห์',audience:'วัยทำงาน 22–35 ปี ในกรุงเทพฯ ชอบลองของใหม่ แวะร้านกาแฟก่อนเข้างาน',message:'อุ่นใจทุกเช้า ด้วยเมนูใหม่ที่ทำจากวัตถุดิบไทย',channels:'Facebook, Instagram, TikTok, LINE OA',pillars:'เปิดตัวเมนู, เบื้องหลัง, รีวิวลูกค้า, โปรโมชัน',owner:'ทีมการตลาด',start:d(-14),end:d(14),budget:45000,kpi:{reach:250000,engagement:15000,clicks:4000,conversions:600},insWorked:'',insImprove:'',nextSteps:'',createdAt:Date.now()});
+  const items=[
+    ['Teaser: เมนูลับกำลังมา','เปิดตัวเมนู','Instagram','Story',-12,'published',3000,30000,1500,{reach:41200,engagement:2310,clicks:380,conversions:0,spend:2800,note:'Story แบบโพลได้คนตอบเยอะ'}],
+    ['วิดีโอเปิดตัว 30 วินาที','เปิดตัวเมนู','TikTok','วิดีโอสั้น',-9,'published',8000,60000,4000,{reach:88400,engagement:6120,clicks:910,conversions:140,spend:7600,note:'ช่วงชงเครื่องดื่มคนดูจบเยอะ'}],
+    ['เบื้องหลังการคัดวัตถุดิบ','เบื้องหลัง','Facebook','Carousel',-6,'published',4000,35000,2000,{reach:22100,engagement:980,clicks:260,conversions:35,spend:3900,note:'ต่ำกว่าเป้า ภาพแรกไม่ดึงดูด'}],
+    ['บรอดแคสต์คูปองลด 20%','โปรโมชัน','LINE OA','บรอดแคสต์',-3,'published',6000,40000,1500,{reach:38000,engagement:1650,clicks:2100,conversions:290,spend:5200,note:'Conversion สูงสุดของแคมเปญ'}],
+    ['รีวิวจากลูกค้าจริง','รีวิวลูกค้า','Instagram','Carousel',2,'scheduled',3000,30000,2000,{}],
+    ['Live ชงสดกับบาริสต้า','เบื้องหลัง','Facebook','Live',7,'production',5000,40000,3000,{}],
+    ['สรุปโปรสัปดาห์สุดท้าย','โปรโมชัน','TikTok','วิดีโอสั้น',12,'idea',6000,30000,1500,{}]];
+  items.forEach((it,i)=>save('contents',{id:uid()+i,campaignId:cid,title:it[0],pillar:it[1],channel:it[2],format:it[3],date:d(it[4]),owner:i%2?'ฝน':'บีม',status:it[5],brief:'',cost:it[6],tReach:it[7],tEng:it[8],url:'',res:it[9],createdAt:Date.now()+i}));
+  setCur(cid);logAct('ใส่ข้อมูลตัวอย่าง',null,true);go('plan');toast('ใส่ข้อมูลตัวอย่างแล้ว ลองคลิกดูแต่ละขั้นตอน');
+}
+
+document.addEventListener('click',e=>{
+  const a=e.target.closest('[data-act]');if(!a)return;
+  const act=a.dataset.act;
+  if(act==='go'){e.preventDefault();go(a.dataset.view,a.dataset.focus)}
+  else if(act==='new-campaign')newCampaign();
+  else if(act==='sample')addSample();
+  else if(act==='new-on-date')openContent(null,a.dataset.date);
+  else if(act==='cal'){const d=a.dataset.d,n=new Date();if(d==='0')calMonth=new Date(n.getFullYear(),n.getMonth(),1);else if(d==='s'){const b=new Date(camp().start+'T00:00');calMonth=new Date(b.getFullYear(),b.getMonth(),1)}else calMonth=new Date(calMonth.getFullYear(),calMonth.getMonth()+Number(d),1);render()}
+  else if(act==='new-content')openContent(null);
+  else if(act==='view-img')viewImgs(a.dataset.id);
+  else if(act==='feed')openFeed();
+  else if(act==='export-xlsx')exportReport(a);
+  else if(act==='edit-content')openContent(a.dataset.id);
+  else if(act==='del-campaign'){const c=camp();if(!c)return;askConfirm(`ลบแคมเปญ “${c.name||'ไม่มีชื่อ'}” และคอนเทนต์ทั้งหมดในแคมเปญนี้?`,()=>{logAct(`ลบแคมเปญ “${c.name||''}”`,null,true);contentsOf(c.id).forEach(x=>{dropImgs(x);remove('contents',x.id)});remove('campaigns',c.id);cur=null;render()})}
+});
+main.addEventListener('change',e=>{
+  const el=e.target;if(el.id==='calCh'){calCh=el.value;render();return}if(!el.dataset||!el.dataset.f)return;
+  const kind=el.dataset.kind,id=el.dataset.id,src=S[kind][id];if(!src)return;
+  const obj=JSON.parse(JSON.stringify(src));let v=el.value;
+  if(el.hasAttribute('data-num'))v=v===''?null:Math.max(0,Number(v));
+  if(getPath(obj,el.dataset.f)===v)return;
+  patch(kind,id,el.dataset.f,v);logChange(kind,id,el.dataset.f,v);
+  if(el.tagName==='SELECT'||el.hasAttribute('data-num'))render();else renderNav();
+});
+sel.addEventListener('change',()=>{setCur(sel.value);render()});
+dlg.addEventListener('close',()=>{EDITING=null;dlg.dataset.openId='';pushPresence()});
+main.addEventListener('keydown',e=>{const p=e.target.closest('[role=button][data-act]');if(p&&(e.key==='Enter'||e.key===' ')){e.preventDefault();p.click()}});
+main.addEventListener('dragstart',e=>{const p=e.target.closest&&e.target.closest('[data-drag]');if(!p)return;if(!canWrite){e.preventDefault();return}e.dataTransfer.setData('text/plain',p.dataset.drag);e.dataTransfer.effectAllowed='move';p.classList.add('dragging')});
+main.addEventListener('dragover',e=>{const c=e.target.closest&&e.target.closest('[data-drop]');if(!c)return;e.preventDefault();e.dataTransfer.dropEffect='move';main.querySelectorAll('.over').forEach(o=>{if(o!==c)o.classList.remove('over')});c.classList.add('over')});
+main.addEventListener('dragend',()=>main.querySelectorAll('.over,.dragging').forEach(o=>o.classList.remove('over','dragging')));
+main.addEventListener('drop',e=>{const c=e.target.closest&&e.target.closest('[data-drop]');if(!c)return;e.preventDefault();const id=e.dataTransfer.getData('text/plain'),x=S.contents[id];if(!x){render();return}const nd=c.dataset.drop;if((x.date||'')===nd){render();return}if(!canWrite){render();return}patchObj('contents',id,{date:nd});logAct(`ย้าย “${x.title||''}” ไป${nd?'วันที่ '+dfmt(nd):'รายการยังไม่กำหนดวัน'}`,id,true);render();toast(nd?'ย้ายไปวันที่ '+dfmt(nd)+' แล้ว':'ย้ายไปรายการที่ยังไม่กำหนดวันแล้ว')});
+window.addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(STAGES.some(s=>s.id===h)&&h!==view){view=h;window.scrollTo(0,0);render()}});
+
+/* ---------- boot ---------- */
+const h0=location.hash.slice(1);if(STAGES.some(s=>s.id===h0))view=h0;
+const local=lsGet('dmw-data');if(local&&local.campaigns)S={campaigns:local.campaigns||{},contents:local.contents||{}};
+document.getElementById('sync').textContent='บันทึกไว้ในเบราว์เซอร์นี้';
+render();
+(async()=>{
+  try{
+    if(!window.claude||!window.claude.use)return;
+    window.claude.use('downloads').then(d=>{DL=d}).catch(()=>{});
+    const db=await window.claude.use('db');if(!db)return;
+    DB=db;mode='db';S={campaigns:{},contents:{}};
+    document.getElementById('sync').textContent='ซิงก์ข้อมูลร่วมกับทีมแบบเรียลไทม์';
+    const sub=kind=>db.collection(kind).onSnapshot(q=>{const m={};q.docs.forEach(d=>{const x=d.data();if(x)m[d.id]=Object.assign({id:d.id},x)});S[kind]=m;render();resolveProfiles()},
+      err=>{toast('การซิงก์หยุดทำงาน รีเฟรชหน้าเพื่อเชื่อมต่อใหม่');document.getElementById('sync').textContent='การซิงก์หยุดทำงาน'});
+    sub('campaigns');sub('contents');
+    try{ASSETS=await window.claude.use('assets')}catch(e){ASSETS=null}
+    document.getElementById('feedBtn').hidden=false;
+    db.collection('activity').orderBy('at','desc').limit(40).onSnapshot(q=>{ACT=q.docs.map(d=>d.data()).filter(Boolean);renderNav();resolveProfiles()},()=>{});
+    try{USER=await window.claude.use('user');if(USER){ME=await USER.id();const w=await USER.can('data.write');if(w===false){canWrite=false;document.body.classList.add('ro')}}}catch(e){}
+    try{ROOM=await window.claude.use('room');if(ROOM){ROOM.onPeers(ch=>{PEERS=(ch.peers||[]).filter(p=>p.kind==='viewer');render();resolveProfiles()},()=>{});pushPresence()}}catch(e){}
+    render();resolveProfiles();
+  }catch(e){}
+})();
+})();
+</script>
+</body>
+</html>
